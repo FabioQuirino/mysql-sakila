@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using sakila.model;
@@ -20,6 +21,18 @@ namespace sakila.repositorio.servico
             }
 
             return atores;
+        }
+
+        public actor ObterPorSobrenome(string sobrenome)
+        {
+            actor ator = null;
+
+            using (var db = new SakilaContext())
+            {
+                ator = db.actors.FirstOrDefault(x => x.last_name.Contains(sobrenome));
+            }
+
+            return ator;
         }
     }
 }
