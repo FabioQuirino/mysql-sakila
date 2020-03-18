@@ -32,6 +32,21 @@ namespace sakila.repositorio
                 entity.Property(e => e.last_update).IsRequired();
             });
 
+
+            modelBuilder.Entity<film_actor>()
+                .HasKey(bc => new { bc.film_id, bc.actor_id });
+            
+            modelBuilder.Entity<film_actor>()
+                .HasOne(bc => bc.actor)
+                .WithMany(b => b.films_actors)
+                .HasForeignKey(bc => bc.actor_id);
+
+            modelBuilder.Entity<film_actor>()
+                .HasOne(bc => bc.film)
+                .WithMany(c => c.films_actors)
+                .HasForeignKey(bc => bc.film_id);
+
+
             modelBuilder.Entity<film>(entity =>
             {
                 entity.ToTable("film");
