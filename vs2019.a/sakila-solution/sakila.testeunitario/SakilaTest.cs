@@ -7,9 +7,16 @@ namespace sakila.testeunitario
     public class SakilaTest
     {
         [TestMethod]
-        public void TestarAcessoBd()
+        public void TestarListarAtores()
         {
-            var teste = new servicoActor().Listar();
+            var actors = new ServicoActor().Listar();
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void TestarListarFilmes()
+        {
+            var films = new ServicoFilm().Listar();
             Assert.IsTrue(true);
         }
     }
