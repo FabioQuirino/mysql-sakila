@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 using sakila.model;
 
 namespace sakila.repositorio.servico
@@ -14,7 +15,10 @@ namespace sakila.repositorio.servico
 
             using (var db = new SakilaContext())
             {
-                films = db.films.ToList();
+                films = db.films
+                    .Include(x => x.films_actors)
+                    .ThenInclude(y => y.actor)
+                    .ToList();
             }
 
             return films;

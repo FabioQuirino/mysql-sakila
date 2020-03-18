@@ -15,7 +15,7 @@ namespace sakila.repositorio.servico
             {
                 atores = db.actors
                     .Include(x => x.films_actors)
-                    .ThenInclude(y => y.actor)
+                    .ThenInclude(y => y.film)
                     .ToList();
             }
 
