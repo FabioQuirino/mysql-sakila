@@ -23,5 +23,14 @@ namespace sakila.repositorio.servico
 
             return films;
         }
+
+        public void Incluir(film filme)
+        {
+            using (var db = new SakilaContext())
+            {
+                db.films.Add(filme);
+                db.SaveChanges();
+            }
+        }
     }
 }
