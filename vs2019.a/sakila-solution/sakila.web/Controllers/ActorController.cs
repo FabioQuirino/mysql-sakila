@@ -9,7 +9,6 @@ namespace sakila.web.Controllers
 {
     public class ActorController : Controller
     {
-        
         public IActionResult Index()
         {
             var servicoAtor = new sakila.repositorio.servico.ServicoActor();

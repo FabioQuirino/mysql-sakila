@@ -41,10 +41,15 @@ namespace sakila.repositorio.servico
 
             using (var db = new SakilaContext())
             {
-                ator = db.actors.Find(primarykey);
+                ator = ObterPorId(db, primarykey.Value);
             }
 
             return ator;
+        }
+
+        private actor ObterPorId(SakilaContext db, int primaryKey)
+        {
+            return db.actors.Find(primaryKey);
         }
 
         public void Insert(actor ator)
@@ -66,13 +71,21 @@ namespace sakila.repositorio.servico
 
         public void Delete(actor ator)
         {
-            using(var db = new SakilaContext())
+            using (var db = new SakilaContext())
+            using (var transacao = db.Database.BeginTransaction())
             {
-                db.actors.Remove(ator);
-                //db.film_actors.Remove(ator);
-                db.SaveChanges();
+                try
+                {
+                    /// todo: fazer a chamada para excluir a associativa film_actor (por actor_id)
+                    db.actors.Remove(ator);
+                    db.SaveChanges();
+                }
+                catch
+                {
+                    transacao.Rollback();
+                    throw;
+                }
             }
         }
-        
     }
 }

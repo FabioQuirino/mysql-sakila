@@ -43,5 +43,10 @@ namespace sakila.repositorio.servico
 
             return filme;
         }
+
+        internal void Excluir(SakilaContext db, int actor_id)
+        {
+            throw new NotImplementedException("o paulo vai implementar");
+        }
     }
 }
