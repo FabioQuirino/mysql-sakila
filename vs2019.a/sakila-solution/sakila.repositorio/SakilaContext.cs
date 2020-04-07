@@ -9,7 +9,7 @@ namespace sakila.repositorio
     {
         public DbSet<actor> actors { get; set; }
         public DbSet<film> films { get; set; }
-
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             IConfigurationRoot configuration = new ConfigurationBuilder()

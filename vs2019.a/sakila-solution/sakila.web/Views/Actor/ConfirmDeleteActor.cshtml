@@ -1,0 +1,29 @@
+@model sakila.model.actor
+<p>
+    <h2>Detalhes Do Ator</h2>
+</p>
+<h3>Você está certo de que quer apagar este ator?</h3>    
+<div class="table table-bordered">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="font-weight-bold">Nome: </label> 
+            <p>@Model.first_name</p>
+        </div>
+        <div class="form-group">
+            <label class="font-weight-bold">Sobrenome: </label>
+            <p>@Model.last_name</p>
+        </div>
+        <div class="form-group">
+            <label class="font-weight-bold">Última alteração:</label>
+            <p>@Model.last_update</p>
+        </div>
+    </div>
+    <form asp-controller="Actor" asp-action="DeleteActor" method="post">
+        <input type="hidden" asp-for="actor_id" />
+        <input type="submit" value="Apagar Ator" class="btn btn-primary" />
+        <a asp-action="Index">Voltar para a Lista</a>
+    </form>
+    @* <div class="col-md-4">
+        @Html.ActionLink("Voltar para a Lista", "Index")
+    </div> *@
+</div>

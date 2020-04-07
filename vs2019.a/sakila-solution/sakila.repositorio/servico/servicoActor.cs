@@ -34,5 +34,45 @@ namespace sakila.repositorio.servico
 
             return ator;
         }
+
+        public actor GetById(int? primarykey)
+        {
+            actor ator = null;
+
+            using (var db = new SakilaContext())
+            {
+                ator = db.actors.Find(primarykey);
+            }
+
+            return ator;
+        }
+
+        public void Insert(actor ator)
+        {
+            using (var db = new SakilaContext())
+            {
+                db.actors.Add(ator);
+                db.SaveChanges();
+            }
+        }
+        public void Update(actor ator)
+        {
+            using (var db = new SakilaContext())
+            {
+                db.actors.Update(ator);
+                db.SaveChanges();
+            }
+        }
+
+        public void Delete(actor ator)
+        {
+            using(var db = new SakilaContext())
+            {
+                db.actors.Remove(ator);
+                //db.film_actors.Remove(ator);
+                db.SaveChanges();
+            }
+        }
+        
     }
 }
