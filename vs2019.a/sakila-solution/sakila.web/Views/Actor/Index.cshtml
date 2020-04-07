@@ -2,9 +2,16 @@
 
 <h1>Index</h1>
 
+    @if (@TempData["mensagem"] != null)
+    {
+        <h3> @TempData["mensagem"].ToString()</h3>
+    }
+
+
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="CreateActor">Criar Novo Ator</a>
 </p>
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 <table class="table">
     <thead>
         <tr>
@@ -25,7 +32,7 @@
     </thead>
     <tbody>
         @foreach (var item in Model)
-        {
+            {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.actor_id)
@@ -40,9 +47,9 @@
                     @Html.DisplayFor(modelItem => item.last_update)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    @Html.ActionLink("Edit", "EditActor", new { id=item.actor_id }) |
+                    @Html.ActionLink("Details", "DetailsActor", new { id=item.actor_id}) |
+                    @Html.ActionLink("Delete", "DeleteActor", new { id=item.actor_id })
                 </td>
             </tr>
         }

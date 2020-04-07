@@ -1,0 +1,43 @@
+@model sakila.model.actor
+
+@{
+    ViewData["Title"]="Editar Ator";
+}
+
+<h1>Editar Ator</h1>
+
+<div class="table">
+    <div class="col-md-4">
+        <form asp-controller="Actor" asp-action="UpdateActor" method="post">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="actor_id" />
+            <div class="form-group">
+                <label asp-for="first_name" class="control-label">Nome</label>
+                <input asp-for="first_name" class="form-control" />
+                <span asp-validation-for="first_name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="last_name" class="control-label">Sobrenome</label>
+                <input asp-for="last_name" class="form-control" />
+                <span asp-validation-for="last_name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="last_update" class="control-label">Data Atualização</label>
+                <input asp-for="last_update" class="form-control"  disabled="true"/>
+                <span asp-validation-for="last_update" class="text-danger" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Salvar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-4">
+        @Html.ActionLink("Voltar para a Lista", "Index")
+    </div>
+</div>
+<style>
+    .input-validation-error {
+        border-color: red;
+    }
+</style>
