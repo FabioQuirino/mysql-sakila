@@ -23,6 +23,21 @@ namespace sakila.repositorio.servico
             return atores;
         }
 
+        public actor GetActorFilmById(int id)
+        {
+            actor ator = null;
+
+            using (var db = new SakilaContext())
+            {
+                ator = db.actors
+                .Include(x => x.films_actors)
+                .ThenInclude(y => y.film)
+                .Where(a=>a.actor_id==id)
+                .First();
+            }
+
+            return ator;
+        }
         public actor ObterPorSobrenome(string sobrenome)
         {
             actor ator = null;
@@ -72,20 +87,28 @@ namespace sakila.repositorio.servico
         public void Delete(actor ator)
         {
             using (var db = new SakilaContext())
-            using (var transacao = db.Database.BeginTransaction())
+            //Como não há concorrência nas modificações, não é necessário criar um contexto transacional.
+            //using (var transacao = db.Database.BeginTransaction())
             {
                 try
                 {
-                    /// todo: fazer a chamada para excluir a associativa film_actor (por actor_id)
+                    db.films_actors.RemoveRange(ator.films_actors);
                     db.actors.Remove(ator);
+
                     db.SaveChanges();
+                    //transacao.Commit();
                 }
                 catch
                 {
-                    transacao.Rollback();
+                    //transacao.Rollback();
+                    //tratar exceção e gravar no log além de fechar a transação
                     throw;
                 }
-            }
+/*                 finally
+                {
+                    transacao.Dispose();
+                };
+ */            }
         }
     }
 }
