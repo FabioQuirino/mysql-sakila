@@ -1,8 +1,9 @@
 @model sakila.model.actor
+<link rel="stylesheet" href="~/css/privateappcomponents.css" type="text/css"/>
 <p>
     <h2>Detalhes Do Ator</h2>
 </p>
-<div class="table table-bordered">
+<div class="table">
     <div class="col-md-4">
         <div class="form-group">
             <label class="font-weight-bold">Nome: </label> 
@@ -17,10 +18,11 @@
             <p>@Model.last_update</p>
         </div>
     </div>
-        <table class="table">
+    <div class="table-responsive-sm">
+        <table class="table table-bordered table-striped thead-dark table-hover">
             <thead>
                 <th>
-                    Título
+                    Títulos dos Filmes
                 </th>
             </thead>
             <tbody>
@@ -32,8 +34,10 @@
                 </tr>
                 }
             </tbody>
-        </table>    
-    <div class="col-md-4">
+        </table>
+    @* <div class="col-md-4">
         @Html.ActionLink("Voltar para a Lista", "Index")
+    </div> *@
     </div>
 </div>
+<a asp-action="Index" class="col-2 align-baseline">Voltar para a Lista</a>    

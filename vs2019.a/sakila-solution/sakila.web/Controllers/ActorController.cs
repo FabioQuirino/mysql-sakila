@@ -25,7 +25,7 @@ namespace sakila.web.Controllers
             return View("Views/Actor/DetailsActor.cshtml", ator);
         }
 
-        public ViewResult EditActor(int? id)
+        public ViewResult EditActor(int id)
         {
             actor ator = GetById(id);
 
@@ -98,7 +98,7 @@ namespace sakila.web.Controllers
             return View("Views/Actor/Index.cshtml", atores);
         }
 
-        private actor GetById(int? id)
+        private actor GetById(int id)
         {
             VerifyNullIntParameter(id);
             var servicoAtor = new sakila.repositorio.servico.ServicoActor();

@@ -1,13 +1,12 @@
 @model sakila.model.actor
 <p>
-    <h3>Detalhes Do Ator</h3>
+    <h3 class="text-danger">Você está certo de que quer apagar este ator?</h3>
 </p>
 @{
-ViewData["Title"]="Detalhes do Ator a ser apagado.";
+    ViewData["Title"]="Detalhes do Ator a ser apagado.";
 }
-
-<h3>Você está certo de que quer apagar este ator?</h3>
-<div class="table table-bordered">
+<h3>Detalhes Do Ator</h3>
+<div class="table">
     <div class="col-md-4">
         <div class="form-group">
             <label class="font-weight-bold">Nome: </label>
@@ -24,26 +23,10 @@ ViewData["Title"]="Detalhes do Ator a ser apagado.";
     </div>
     <form asp-controller="Actor" asp-action="DeleteActor" asp-route-id="@Model.actor_id" method="post">
         @Html.AntiForgeryToken()
-        <table class="table">
-            <thead>
-                <th>
-                    Título
-                </th>
-            </thead>
-            <tbody>
-                @foreach(var filmeator in Model.films_actors) {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelitem => filmeator.film.title)
-                    </td>
-                </tr>
-                }
-            </tbody>
-        </table>
         <div class="form-group">
             @* Para passar o parametro na tag abaixo o parametro do metodo deve ter o nome actor_id
             <input asp-for="actor_id" asp-route-id="actor_id" type="hidden" /> *@
-            <input type="submit" value="Apagar Ator" class="btn btn-primary" />
+            <input type="submit" value="Apagar Ator" class="btn btn-danger" /> |
             <a asp-action="Index" class="col-md-4">Voltar para a Lista</a>
         </div>
     </form>
