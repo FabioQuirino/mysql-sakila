@@ -1,12 +1,15 @@
 @model sakila.model.actor
 <p>
-    <h2>Detalhes Do Ator</h2>
+    <h3 class="text-danger">Você está certo de que quer apagar este ator?</h3>
 </p>
-<h3>Você está certo de que quer apagar este ator?</h3>    
-<div class="table table-bordered">
+@{
+    ViewData["Title"]="Detalhes do Ator a ser apagado.";
+}
+<h3>Detalhes Do Ator</h3>
+<div class="table">
     <div class="col-md-4">
         <div class="form-group">
-            <label class="font-weight-bold">Nome: </label> 
+            <label class="font-weight-bold">Nome: </label>
             <p>@Model.first_name</p>
         </div>
         <div class="form-group">
@@ -18,10 +21,14 @@
             <p>@Model.last_update</p>
         </div>
     </div>
-    <form asp-controller="Actor" asp-action="DeleteActor" method="post">
-        <input type="hidden" asp-for="actor_id" />
-        <input type="submit" value="Apagar Ator" class="btn btn-primary" />
-        <a asp-action="Index">Voltar para a Lista</a>
+    <form asp-controller="Actor" asp-action="DeleteActor" asp-route-id="@Model.actor_id" method="post">
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            @* Para passar o parametro na tag abaixo o parametro do metodo deve ter o nome actor_id
+            <input asp-for="actor_id" asp-route-id="actor_id" type="hidden" /> *@
+            <input type="submit" value="Apagar Ator" class="btn btn-danger" /> |
+            <a asp-action="Index" class="col-md-4">Voltar para a Lista</a>
+        </div>
     </form>
     @* <div class="col-md-4">
         @Html.ActionLink("Voltar para a Lista", "Index")

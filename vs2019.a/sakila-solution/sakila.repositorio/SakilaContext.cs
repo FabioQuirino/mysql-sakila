@@ -46,8 +46,9 @@ namespace sakila.repositorio
                     entity.HasOne(e => e.film)
                         .WithMany(e => e.films_actors)
                         .HasForeignKey(e => e.film_id);
-                });
 
+                });
+        
             modelBuilder.Entity<film>(entity =>
             {
                 entity.ToTable("film");

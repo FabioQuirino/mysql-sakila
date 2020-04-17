@@ -16,14 +16,16 @@ namespace sakila.web.Controllers
             return View(atores);
         }
 
-        public ViewResult DetailsActor(int? id)
+        public ViewResult DetailsActor(int id)
         {
-            actor ator = GetById(id);
+            var servicoAtor = new sakila.repositorio.servico.ServicoActor();
+
+            actor ator = servicoAtor.GetActorFilmById(id);
 
             return View("Views/Actor/DetailsActor.cshtml", ator);
         }
 
-        public ViewResult EditActor(int? id)
+        public ViewResult EditActor(int id)
         {
             actor ator = GetById(id);
 
@@ -34,7 +36,7 @@ namespace sakila.web.Controllers
         {
             var servicoAtor = new sakila.repositorio.servico.ServicoActor();
 
-            //ator.last_update = new DateTime();
+            ator.last_update = DateTime.Now;
 
             servicoAtor.Update(ator);
 
@@ -54,6 +56,8 @@ namespace sakila.web.Controllers
         public ViewResult InsertActor(actor ator)
         {
             var servicoAtor = new sakila.repositorio.servico.ServicoActor();
+            
+            ator.last_update = DateTime.Now;
 
             servicoAtor.Insert(ator);
 
@@ -65,19 +69,25 @@ namespace sakila.web.Controllers
 
         }
 
-        public ViewResult ConfirmDeleteActor(int? id)
+        public ViewResult ConfirmDeleteActor(int id)
         {
-            actor ator = GetById(id);
+            var servicoAtor = new sakila.repositorio.servico.ServicoActor();
+
+            actor ator = servicoAtor.GetActorFilmById(id);
 
             return View("Views/Actor/ConfirmDeleteActor.cshtml", ator);
         }
 
         // Apagar o registro da tabela actor e da tabela film_actor
-        public ViewResult DeleteActor(int? id)
+
+        [ValidateAntiForgeryToken]
+        public ViewResult DeleteActor(int id)
         {
-            actor ator = GetById(id);
+            //actor ator = GetById(id);
 
             var servicoAtor = new sakila.repositorio.servico.ServicoActor();
+
+            actor ator = servicoAtor.GetActorFilmById(id);
 
             servicoAtor.Delete(ator);
 
@@ -88,7 +98,7 @@ namespace sakila.web.Controllers
             return View("Views/Actor/Index.cshtml", atores);
         }
 
-        private actor GetById(int? id)
+        private actor GetById(int id)
         {
             VerifyNullIntParameter(id);
             var servicoAtor = new sakila.repositorio.servico.ServicoActor();

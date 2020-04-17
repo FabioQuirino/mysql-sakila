@@ -1,13 +1,15 @@
 ﻿@model List<sakila.model.actor>
 
-<h1>Index</h1>
+<h3>Lista de Atores</h3>
 
-    @if (@TempData["mensagem"] != null)
-    {
-        <h3> @TempData["mensagem"].ToString()</h3>
+    @{
+        ViewData["Title"]="Lista de Atores";
+        if (@TempData["mensagem"] != null)
+        {
+            <h3 class="text-danger"> @TempData["mensagem"].ToString()</h3>
+        }
     }
-
-
+    
 <p>
     <a asp-action="CreateActor">Criar Novo Ator</a>
 </p>
@@ -49,7 +51,7 @@
                 <td>
                     @Html.ActionLink("Edit", "EditActor", new { id=item.actor_id }) |
                     @Html.ActionLink("Details", "DetailsActor", new { id=item.actor_id}) |
-                    @Html.ActionLink("Delete", "DeleteActor", new { id=item.actor_id })
+                    @Html.ActionLink("Delete", "ConfirmDeleteActor", new { id=item.actor_id })
                 </td>
             </tr>
         }
