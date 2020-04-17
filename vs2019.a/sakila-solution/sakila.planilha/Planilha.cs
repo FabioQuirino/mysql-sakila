@@ -3,17 +3,34 @@ using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 using System;
 using System.IO;
+using System.Linq;
 
 namespace sakila.planilha
 {
     public class Planilha
     {
-        public Planilha()
+        private Planilha()
         {
-
         }
 
-        public string ReferenciaCelula(int j, int k)
+        public Planilha(Aba aba)
+        {
+            Abas = new Aba[] { aba };
+        }
+
+        public Planilha(Aba[] abas)
+        {
+            if (abas.Select(x => x.Nome).Distinct().Count() != abas.Count())
+            {
+                throw new Exception("Os nomes das abas não podem ser repetidos.");
+            }
+
+            Abas = abas;
+        }
+
+        private Aba[] Abas { get; }
+
+        public static string ReferenciaCelula(int j, int k)
         {
             return $"{DeParaColuna(k)}{j}";
         }
@@ -37,7 +54,7 @@ namespace sakila.planilha
         }
         private byte[] arquivo;
 
-        private string DeParaColuna(int dividend)
+        private static string DeParaColuna(int dividend)
         {
             var columnName = string.Empty;
 
@@ -61,7 +78,7 @@ namespace sakila.planilha
                 workbookpart.Workbook = new Workbook();
                 Sheets sheets = spreadsheetDocument.WorkbookPart.Workbook.AppendChild<Sheets>(new Sheets());
 
-                for (int i = 1; i < 4; i++)
+                for (int i = 0; i < Abas.Length; i++)
                 {
                     WorksheetPart worksheetPart = workbookpart.AddNewPart<WorksheetPart>();
                     SheetData sheetData = new SheetData();
@@ -69,31 +86,49 @@ namespace sakila.planilha
 
                     Sheet sheet = new Sheet()
                     {
-                        Id = spreadsheetDocument.WorkbookPart.
-                        GetIdOfPart(worksheetPart),
-                        SheetId = (uint)i,
-                        Name = $"mySheet-{i}"
+                        Id = spreadsheetDocument.WorkbookPart.GetIdOfPart(worksheetPart),
+                        SheetId = (uint)(i + 1),
+                        Name = Abas[i].Nome
                     };
 
-                    for (int j = 1; j < 5; j++)
+                    foreach (var elemento in Abas[i].Dados)
                     {
+                        var linha = elemento.Key;
                         Row row = new Row()
                         {
-                            RowIndex = (uint)j
+                            RowIndex = (uint)linha
                         };
 
-                        for (int k = 1; k < 8; k++)
+                        var coluna = 1;
+                        foreach (var celula in elemento.Value)
                         {
-                            string celula = ReferenciaCelula(j, k);
+                            string referencia = ReferenciaCelula(linha, coluna);
+                            object conteudo = celula.Conteudo;
 
                             Cell cell = new Cell()
                             {
-                                CellReference = new StringValue(celula),
-                                DataType = CellValues.String,
-                                CellValue = new CellValue($"conteudo-{celula}-{(i * j * k).ToString()}")
+                                CellReference = new StringValue(referencia),
+                                DataType = CellValues.String
                             };
 
+                            try
+                            {
+                                if (conteudo != null)
+                                {
+                                    cell.CellValue = new CellValue($"{conteudo.ToString()}");
+                                }
+                                else
+                                {
+                                    cell.CellValue = new CellValue();
+                                }
+                            }
+                            catch (Exception erro)
+                            {
+                                cell.CellValue = new CellValue($"{erro.Message}");
+                            }
+
                             row.AppendChild(cell);
+                            coluna++;
                         }
 
                         sheetData.AppendChild(row);
