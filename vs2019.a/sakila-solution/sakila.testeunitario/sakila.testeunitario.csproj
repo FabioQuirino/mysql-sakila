@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\sakila.model\sakila.model.csproj" />
+    <ProjectReference Include="..\sakila.planilha\sakila.planilha.csproj" />
     <ProjectReference Include="..\sakila.repositorio\sakila.repositorio.csproj" />
   </ItemGroup>
 
