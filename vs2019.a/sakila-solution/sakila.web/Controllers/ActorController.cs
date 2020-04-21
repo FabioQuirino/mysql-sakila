@@ -18,17 +18,15 @@ namespace sakila.web.Controllers
 
         public ViewResult DetailsActor(int id)
         {
-            var servicoAtor = new sakila.repositorio.servico.ServicoActor();
-
-            actor ator = servicoAtor.GetActorFilmById(id);
+            actor ator = GetActorFilmById(id);
 
             return View("Views/Actor/DetailsActor.cshtml", ator);
         }
 
         public ViewResult EditActor(int id)
         {
-            actor ator = GetById(id);
-
+            actor ator = GetActorFilmById(id);
+//********************************* obs
             return View("Views/Actor/EditActor.cshtml", ator);
         }
 
@@ -103,6 +101,15 @@ namespace sakila.web.Controllers
             VerifyNullIntParameter(id);
             var servicoAtor = new sakila.repositorio.servico.ServicoActor();
             actor ator = servicoAtor.GetById(id);
+
+            return ator;
+        }
+
+        private actor GetActorFilmById(int id)
+        {
+            VerifyNullIntParameter(id);
+            var servicoAtor = new sakila.repositorio.servico.ServicoActor();
+            actor ator = servicoAtor.GetActorFilmById(id);
 
             return ator;
         }

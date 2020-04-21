@@ -1,12 +1,12 @@
 @model sakila.model.actor
-<link rel="stylesheet" href="~/css/privateappcomponents.css" type="text/css"/>
+<link rel="stylesheet" href="~/css/privateappcomponents.css" type="text/css" />
 <p>
-    <h2>Detalhes Do Ator</h2>
+    <h3>Detalhes Do Ator</h3>
 </p>
 <div class="table">
     <div class="col-md-4">
         <div class="form-group">
-            <label class="font-weight-bold">Nome: </label> 
+            <label class="font-weight-bold">Nome: </label>
             <p>@Model.first_name</p>
         </div>
         <div class="form-group">
@@ -18,15 +18,16 @@
             <p>@Model.last_update</p>
         </div>
     </div>
-    <div class="table-responsive-sm">
-        <table class="table table-bordered table-striped thead-dark table-hover">
+    <div class="table-responsive-sm text-nowrap w-75">
+        <table class="table-sm table-bordered table-striped thead-dark table-hover">
             <thead>
-                <th>
-                    Títulos dos Filmes
-                </th>
+                    <th>
+                        Títulos dos Filmes
+                    </th>
             </thead>
             <tbody>
-                @foreach(var filmeator in Model.films_actors) {
+                @foreach(var filmeator in Model.films_actors)
+                {
                 <tr>
                     <td>
                         @Html.DisplayFor(modelitem => filmeator.film.title)
@@ -35,9 +36,9 @@
                 }
             </tbody>
         </table>
-    @* <div class="col-md-4">
-        @Html.ActionLink("Voltar para a Lista", "Index")
-    </div> *@
     </div>
 </div>
-<a asp-action="Index" class="col-2 align-baseline">Voltar para a Lista</a>    
+<div>
+    @Html.ActionLink("Editar", "EditActor", new { id=Model.actor_id }) |
+    <a asp-action="Index" class="align-baseline">Voltar para a Lista</a>
+</div>

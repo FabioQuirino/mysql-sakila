@@ -1,11 +1,10 @@
 @model sakila.model.actor
-
+<link rel="stylesheet" href="~/css/privateappcomponents.css" type="text/css" />
 @{
     ViewData["Title"]="Editar Ator";
 }
 
 <h1>Editar Ator</h1>
-
 <div class="table">
     <div class="col-md-4">
         <form asp-controller="Actor" asp-action="UpdateActor" method="post">
@@ -24,7 +23,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="last_update" class="control-label">Data Atualização</label>
-                <input asp-for="last_update" class="form-control"  disabled="true"/>
+                <input asp-for="last_update" class="form-control" disabled="true" />
                 <span asp-validation-for="last_update" class="text-danger" />
             </div>
             <div class="form-group">
@@ -35,9 +34,71 @@
     <div class="col-md-4">
         @Html.ActionLink("Voltar para a Lista", "Index")
     </div>
+    <div>
+        <input type="checkbox" id="editActorFilms" name="editActorFilms" />
+        <label for="editActorFilms" class="font-weight-light p-3">Excluir / Incluir filmes do Ator?</label>
+    </div>
+    <div class="card container">
+        <h3 class="card-header text-center">LISTA DE FILMES DO ATOR</h3>
+        <div class="card-body row">
+            <div  class="table-responsive-sm col-sm-6">
+                <table class="table table-bordered table-striped thead-dark" id="filmsActor">
+                    <thead>
+                        <tr class="text-center">
+                            <th colspan="2">
+                                Títulos dos Filmes Em Que Atuou
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var filmes in Model.films_actors)
+                        {
+                        <tr>
+                            <td>
+                                @* @Html.HiddenFor(modelitem => filmes.film.film_id) *@
+                                @Html.DisplayFor(modelitem => filmes.film.title)
+                            </td>
+                            <td style="width: 12%; vertical-align: middle; color: red;"  class="text-center">
+                                @Html.ActionLink("x", "DetachActorFilm", new { id=filmes.film_id }, new { style="color: red; font-weight: bold",title="Apagar Filme de Id:" + filmes.film_id})
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div  class="table-responsive-sm col-sm-6">
+                <table class="table table-bordered table-striped thead-dark" id="filmsAll">
+                    <thead>
+                        <tr class="text-center">
+                            <th colspan="2">
+                                Títulos dos Filmes Cadastrados
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var filmes in Model.films_actors)
+                        {
+                        <tr>
+                            <td>
+                                @* @Html.HiddenFor(modelitem => filmes.film.film_id) *@
+                                @Html.DisplayFor(modelitem => filmes.film.title)
+                            </td>
+                            <td style="width: 12%; vertical-align: middle;" class="text-center">
+                                @Html.ActionLink("<", "DetachActorFilm", new { id=filmes.film_id })
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 <style>
     .input-validation-error {
         border-color: red;
     }
 </style>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
