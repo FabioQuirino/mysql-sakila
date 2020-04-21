@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using sakila.model;
+using sakila.web.Models;
 
 namespace sakila.web.Controllers
 {
@@ -25,9 +27,13 @@ namespace sakila.web.Controllers
 
         public ViewResult EditActor(int id)
         {
-            actor ator = GetActorFilmById(id);
-//********************************* obs
-            return View("Views/Actor/EditActor.cshtml", ator);
+            var atorFilmes = new AtorFilmesGerenciarViewModel()
+            {
+                actor = GetActorFilmById(id),
+                filmes = GetActorFilmById(id).films_actors.Select(f => f.film).ToList() // TODO: LISTAR TODOS EXCETO O DO PRÓPRIO.
+            };
+
+            return View(atorFilmes);
         }
 
         public ViewResult UpdateActor(actor ator)
@@ -42,19 +48,19 @@ namespace sakila.web.Controllers
 
             TempData["mensagem"] = "Ator atualizado com Sucesso!";
 
-            return View("Views/Actor/Index.cshtml",atores);
+            return View("Views/Actor/Index.cshtml", atores);
         }
 
         public ViewResult CreateActor()
         {
-            return View("Views/Actor/CreateActor.cshtml");  
+            return View("Views/Actor/CreateActor.cshtml");
         }
 
         [ValidateAntiForgeryToken]
         public ViewResult InsertActor(actor ator)
         {
             var servicoAtor = new sakila.repositorio.servico.ServicoActor();
-            
+
             ator.last_update = DateTime.Now;
 
             servicoAtor.Insert(ator);
@@ -96,6 +102,31 @@ namespace sakila.web.Controllers
             return View("Views/Actor/Index.cshtml", atores);
         }
 
+        [HttpDelete]
+        public PartialViewResult DesassociarFilme(int actorId, int filmeId)
+        {
+            List<film> filmesAtor = null;
+            List<film> todosFilmes = null;
+            int atorId = 0;
+
+            System.Threading.Thread.Sleep(4000);
+
+            try
+            {
+                // TODO: desassociar;
+                var ator = GetActorFilmById(actorId);
+                filmesAtor = ator.films_actors.Select(f => f.film).ToList();
+                todosFilmes = ator.films_actors.Select(f => f.film).ToList(); // todo: programar.
+                atorId = ator.actor_id;
+            }
+            catch (Exception erro)
+            {
+                ModelState.AddModelError("", erro.Message);
+            }
+
+            return PartialView("FilmesAtor", new Tuple<List<film>, List<film>, int>(filmesAtor, todosFilmes, atorId));
+        }
+
         private actor GetById(int id)
         {
             VerifyNullIntParameter(id);
@@ -122,7 +153,5 @@ namespace sakila.web.Controllers
                 //throw new ArgumentNullException(nameof(id));
             }
         }
-
-
     }
 }

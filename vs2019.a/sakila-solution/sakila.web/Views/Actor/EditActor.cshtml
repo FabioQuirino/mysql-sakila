@@ -1,35 +1,36 @@
-@model sakila.model.actor
+@using sakila.model
+@model sakila.web.Models.AtorFilmesGerenciarViewModel
 <link rel="stylesheet" href="~/css/privateappcomponents.css" type="text/css" />
 @{
-    ViewData["Title"]="Editar Ator";
+    ViewData["Title"] = "Editar Ator";
 }
 
 <h1>Editar Ator</h1>
 <div class="table">
     <div class="col-md-4">
-        <form asp-controller="Actor" asp-action="UpdateActor" method="post">
+        @*<form asp-controller="Actor" asp-action="UpdateActor" method="post">
             @Html.AntiForgeryToken()
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="actor_id" />
+            <input type="hidden" asp-for="ator.actor_id" />
             <div class="form-group">
-                <label asp-for="first_name" class="control-label">Nome</label>
-                <input asp-for="first_name" class="form-control" />
-                <span asp-validation-for="first_name" class="text-danger"></span>
+                <label asp-for="ator.first_name" class="control-label">Nome</label>
+                <input asp-for="ator.first_name" class="form-control" />
+                <span asp-validation-for="ator.first_name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="last_name" class="control-label">Sobrenome</label>
-                <input asp-for="last_name" class="form-control" />
+                <label asp-for="ator.last_name" class="control-label">Sobrenome</label>
+                <input asp-for="ator.last_name" class="form-control" />
                 <span asp-validation-for="last_name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="last_update" class="control-label">Data Atualização</label>
-                <input asp-for="last_update" class="form-control" disabled="true" />
-                <span asp-validation-for="last_update" class="text-danger" />
+                <label asp-for="ator.last_update" class="control-label">Data Atualização</label>
+                <input asp-for="ator.last_update" class="form-control" disabled="true" />
+                <span asp-validation-for="ator.last_update" class="text-danger" />
             </div>
             <div class="form-group">
                 <input type="submit" value="Salvar" class="btn btn-primary" />
             </div>
-        </form>
+        </form>*@
     </div>
     <div class="col-md-4">
         @Html.ActionLink("Voltar para a Lista", "Index")
@@ -40,65 +41,16 @@
     </div>
     <div class="card container">
         <h3 class="card-header text-center">LISTA DE FILMES DO ATOR</h3>
-        <div class="card-body row">
-            <div  class="table-responsive-sm col-sm-6">
-                <table class="table table-bordered table-striped thead-dark" id="filmsActor">
-                    <thead>
-                        <tr class="text-center">
-                            <th colspan="2">
-                                Títulos dos Filmes Em Que Atuou
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach(var filmes in Model.films_actors)
-                        {
-                        <tr>
-                            <td>
-                                @* @Html.HiddenFor(modelitem => filmes.film.film_id) *@
-                                @Html.DisplayFor(modelitem => filmes.film.title)
-                            </td>
-                            <td style="width: 12%; vertical-align: middle; color: red;"  class="text-center">
-                                @Html.ActionLink("x", "DetachActorFilm", new { id=filmes.film_id }, new { style="color: red; font-weight: bold",title="Apagar Filme de Id:" + filmes.film_id})
-                            </td>
-                        </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-            <div  class="table-responsive-sm col-sm-6">
-                <table class="table table-bordered table-striped thead-dark" id="filmsAll">
-                    <thead>
-                        <tr class="text-center">
-                            <th colspan="2">
-                                Títulos dos Filmes Cadastrados
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach(var filmes in Model.films_actors)
-                        {
-                        <tr>
-                            <td>
-                                @* @Html.HiddenFor(modelitem => filmes.film.film_id) *@
-                                @Html.DisplayFor(modelitem => filmes.film.title)
-                            </td>
-                            <td style="width: 12%; vertical-align: middle;" class="text-center">
-                                @Html.ActionLink("<", "DetachActorFilm", new { id=filmes.film_id })
-                            </td>
-                        </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
+        <div id="minhas-tabelas">
+            @Html.Partial("FilmesAtor", new Tuple<List<film>, List<film>, int>(Model.actor.films_actors.Select(f => f.film).ToList(), Model.filmes, Model.actor.actor_id));
         </div>
     </div>
 </div>
-<style>
-    .input-validation-error {
-        border-color: red;
-    }
-</style>
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+<script>
+    $(".btn-remover-filme-ator").on("click", DesassociarFilme);
+</script>

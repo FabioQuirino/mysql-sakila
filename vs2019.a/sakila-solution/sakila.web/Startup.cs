@@ -26,15 +26,15 @@ namespace sakila.web
         public void ConfigureServices(IServiceCollection services)
         {
             //Bloco if adicionado devido a atualização do Browser(LiveReload) - Arquivos modificados launchSettings.json, sakila.web.csproj e statup.cs
-            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
-            {    
-                services.AddLiveReload(config =>
-                {
-                    config.LiveReloadEnabled = true;
-                    config.ClientFileExtensions = ".cshtml,.css,.js,.htm,.html";
-                    config.FolderToMonitor = "~/../";
-                });
-            }
+            //if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+            //{    
+                //services.AddLiveReload(config =>
+                //{
+                //    config.LiveReloadEnabled = true;
+                //    config.ClientFileExtensions = ".cshtml,.css,.js,.htm,.html";
+                //    config.FolderToMonitor = "~/../";
+                //});
+            //}
 
             services.AddControllersWithViews();
         }
@@ -43,8 +43,9 @@ namespace sakila.web
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
-            {//Linha adicionada devido a atualização do Browser(LiveReload) - Arquivos modificados launchSettings.json, sakila.web.csproj e statup.cs
-                app.UseLiveReload();
+            {
+                //Linha adicionada devido a atualização do Browser(LiveReload) - Arquivos modificados launchSettings.json, sakila.web.csproj e statup.cs
+                //app.UseLiveReload();
                 app.UseDeveloperExceptionPage();
             }
             else

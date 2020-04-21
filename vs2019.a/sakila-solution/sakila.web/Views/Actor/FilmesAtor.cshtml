@@ -1,0 +1,57 @@
+﻿@using sakila.model
+@model Tuple<List<film>, List<film>, int>
+
+<div class="card-body row">
+    <div class="table-responsive-sm col-sm-6">
+        <table class="table table-bordered table-striped thead-dark" id="filmsActor">
+            <thead>
+                <tr class="text-center">
+                    <th colspan="2">
+                        Títulos dos Filmes Em Que Atuou
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var filme in Model.Item1)
+                {
+                    <tr name="linha" data-filme-id="@(filme.film_id)">
+                        <td class="col-10">
+                            <label>@filme.title</label>
+                        </td>
+                        <td class="text-center text-danger col-2">
+                            <a href="@Url.Action("DesassociarFilme", "Actor", new { filmeId=filme.film_id, actorId=Model.Item3 })" class="btn btn-danger btn-remover-filme-ator">
+                                <i class="fa fa-remove"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="table-responsive-sm col-sm-6">
+        <table class="table table-bordered table-striped thead-dark" id="filmsAll">
+            <thead>
+                <tr class="text-center">
+                    <th colspan="2">
+                        Títulos dos Filmes Cadastrados
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var filme in Model.Item2)
+                {
+                    <tr>
+                        <td>
+                            @filme.title
+                        </td>
+                        <td style="width: 12%; vertical-align: middle;" class="text-center">
+                            <a href="@Url.Action("DetachActorFilm", "Actor", new { id=filme.film_id })" class="btn btn-danger">
+                                <i class="fa fa-remove"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
