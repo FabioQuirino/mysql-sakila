@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "sakila.web", "sakila.web\sa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "sakila.web.identity", "sakila.web.identity\sakila.web.identity.csproj", "{DEE72C8B-1AE5-4326-869F-17BC06DE2A88}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sakila.planilha", "sakila.planilha\sakila.planilha.csproj", "{8FC9B014-5C26-4F72-B6E5-5C2C808CE08E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "sakila.planilha", "sakila.planilha\sakila.planilha.csproj", "{8FC9B014-5C26-4F72-B6E5-5C2C808CE08E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sakila.webapi", "sakila.webapi\sakila.webapi.csproj", "{397B953D-B129-416E-8DFC-A08724D6729A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{8FC9B014-5C26-4F72-B6E5-5C2C808CE08E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FC9B014-5C26-4F72-B6E5-5C2C808CE08E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8FC9B014-5C26-4F72-B6E5-5C2C808CE08E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{397B953D-B129-416E-8DFC-A08724D6729A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{397B953D-B129-416E-8DFC-A08724D6729A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{397B953D-B129-416E-8DFC-A08724D6729A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{397B953D-B129-416E-8DFC-A08724D6729A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
