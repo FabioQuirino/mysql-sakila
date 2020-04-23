@@ -7,6 +7,7 @@ namespace sakila.planilha
 {
     public class Celula
     {
+        private static CultureInfo cultura = new CultureInfo("en-gb");
         private Celula() { }
         public Celula(object conteudo)
         {
@@ -25,8 +26,6 @@ namespace sakila.planilha
             {
                 CellReference = $"{DeParaColuna(coluna)}{linha}",
             };
-
-            var cultura = new CultureInfo("en-gb");
 
             if (conteudo != null)
             {

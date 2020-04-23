@@ -61,38 +61,7 @@ namespace sakila.planilha
 
                 for (int i = 0; i < Abas.Length; i++)
                 {
-                    WorksheetPart worksheetPart = workbookpart.AddNewPart<WorksheetPart>();
-                    SheetData sheetData = new SheetData();
-                    worksheetPart.Worksheet = new Worksheet(sheetData);
-
-                    Sheet sheet = new Sheet()
-                    {
-                        Id = spreadsheetDocument.WorkbookPart.GetIdOfPart(worksheetPart),
-                        SheetId = (uint)(i + 1),
-                        Name = Abas[i].Nome
-                    };
-
-                    foreach (var elemento in Abas[i].Dados)
-                    {
-                        var linha = elemento.Key;
-                        Row row = new Row()
-                        {
-                            RowIndex = (uint)linha
-                        };
-
-                        var coluna = 1;
-                        foreach (var celula in elemento.Value)
-                        {
-                            
-                            object conteudo = celula.Conteudo;
-                            var cell = Celula.GerarCelula(linha, coluna, conteudo);
-                            row.AppendChild(cell);
-                            coluna++;
-                        }
-
-                        sheetData.AppendChild(row);
-                    }
-
+                    var sheet = Aba.GerarPlanilha(spreadsheetDocument, workbookpart, Abas[i]);
                     sheets.Append(sheet);
                 }
 
