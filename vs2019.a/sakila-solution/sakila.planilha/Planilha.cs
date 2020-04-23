@@ -30,11 +30,6 @@ namespace sakila.planilha
 
         private Aba[] Abas { get; }
 
-        public static string ReferenciaCelula(int j, int k)
-        {
-            return $"{DeParaColuna(k)}{j}";
-        }
-
         public void GerarArquivo(string caminho, string arquivo)
         {
             File.WriteAllBytes($@"{caminho}\{arquivo}", Arquivo);
@@ -53,20 +48,6 @@ namespace sakila.planilha
             }
         }
         private byte[] arquivo;
-
-        private static string DeParaColuna(int dividend)
-        {
-            var columnName = string.Empty;
-
-            while (dividend > 0)
-            {
-                var modulo = (dividend - 1) % 26;
-                columnName = Convert.ToChar(65 + modulo) + columnName;
-                dividend = (dividend - modulo) / 26;
-            }
-
-            return columnName;
-        }
 
         private byte[] GerarPlanilha()
         {
@@ -102,31 +83,9 @@ namespace sakila.planilha
                         var coluna = 1;
                         foreach (var celula in elemento.Value)
                         {
-                            string referencia = ReferenciaCelula(linha, coluna);
+                            
                             object conteudo = celula.Conteudo;
-
-                            Cell cell = new Cell()
-                            {
-                                CellReference = new StringValue(referencia),
-                                DataType = CellValues.String
-                            };
-
-                            try
-                            {
-                                if (conteudo != null)
-                                {
-                                    cell.CellValue = new CellValue($"{conteudo.ToString()}");
-                                }
-                                else
-                                {
-                                    cell.CellValue = new CellValue();
-                                }
-                            }
-                            catch (Exception erro)
-                            {
-                                cell.CellValue = new CellValue($"{erro.Message}");
-                            }
-
+                            var cell = Celula.GerarCelula(linha, coluna, conteudo);
                             row.AppendChild(cell);
                             coluna++;
                         }

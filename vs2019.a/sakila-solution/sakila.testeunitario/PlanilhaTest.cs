@@ -13,22 +13,15 @@ namespace sakila.testeunitario
         [TestMethod]
         public void GerarPlanilha()
         {
-            var actors = new ServicoActor().Listar();
+            var filmes = new ServicoFilm().Listar().ToList();
 
-            int? intNull = null;
-            decimal? decimalNull = null;
-            DateTime? dateNull = null;
-
-            var aba1 = new Aba("fabio");
-            aba1.AdicionarDados(1, intNull, decimalNull, dateNull);
-            aba1.AdicionarDados(1, "quirino", DateTime.Now, decimal.Zero);
-
-            var aba2 = new Aba("atores");
-            actors.ForEach(x => { aba2.AdicionarDados(x.actor_id, x.first_name, x.last_name, x.last_update); });
-
+            var aba1 = new Aba("filmes");
+            aba1.AdicionarDados("film_id", "title", "description", "release_year", "language_id", "original_language_id", "rental_duration", "rental_rate", "length", "replacement_cost", "rating", "special_features", "last_update");
+            filmes.ForEach(f => {
+                aba1.AdicionarDados(f.film_id, f.title, f.description, f.release_year, f.language_id, f.original_language_id, f.rental_duration, f.rental_rate, f.length, f.replacement_cost, f.rating, f.special_features, f.last_update);
+            });
             var abas = new Aba[] {
                 aba1,
-                aba2
             };
 
             var planilha = new Planilha(abas);
@@ -40,7 +33,7 @@ namespace sakila.testeunitario
         [TestMethod]
         public void CalcularReferenciaCelula()
         {
-            var referencia = Planilha.ReferenciaCelula(3, 1);
+            var referencia = Celula.ReferenciaCelula(3, 1);
 
             Assert.IsTrue(referencia == "A3", "Erro ao gerar referencia célula");
         }
