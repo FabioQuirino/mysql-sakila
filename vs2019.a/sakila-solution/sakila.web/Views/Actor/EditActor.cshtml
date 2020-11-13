@@ -1,43 +1,56 @@
-@model sakila.model.actor
-
+@using sakila.model
+@model sakila.web.Models.AtorFilmesGerenciarViewModel
+<link rel="stylesheet" href="~/css/privateappcomponents.css" type="text/css" />
 @{
-    ViewData["Title"]="Editar Ator";
+    ViewData["Title"] = "Editar Ator";
 }
 
 <h1>Editar Ator</h1>
-
 <div class="table">
     <div class="col-md-4">
-        <form asp-controller="Actor" asp-action="UpdateActor" method="post">
+        @*<form asp-controller="Actor" asp-action="UpdateActor" method="post">
             @Html.AntiForgeryToken()
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="actor_id" />
+            <input type="hidden" asp-for="ator.actor_id" />
             <div class="form-group">
-                <label asp-for="first_name" class="control-label">Nome</label>
-                <input asp-for="first_name" class="form-control" />
-                <span asp-validation-for="first_name" class="text-danger"></span>
+                <label asp-for="ator.first_name" class="control-label">Nome</label>
+                <input asp-for="ator.first_name" class="form-control" />
+                <span asp-validation-for="ator.first_name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="last_name" class="control-label">Sobrenome</label>
-                <input asp-for="last_name" class="form-control" />
+                <label asp-for="ator.last_name" class="control-label">Sobrenome</label>
+                <input asp-for="ator.last_name" class="form-control" />
                 <span asp-validation-for="last_name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="last_update" class="control-label">Data Atualização</label>
-                <input asp-for="last_update" class="form-control"  disabled="true"/>
-                <span asp-validation-for="last_update" class="text-danger" />
+                <label asp-for="ator.last_update" class="control-label">Data Atualização</label>
+                <input asp-for="ator.last_update" class="form-control" disabled="true" />
+                <span asp-validation-for="ator.last_update" class="text-danger" />
             </div>
             <div class="form-group">
                 <input type="submit" value="Salvar" class="btn btn-primary" />
             </div>
-        </form>
+        </form>*@
     </div>
     <div class="col-md-4">
         @Html.ActionLink("Voltar para a Lista", "Index")
     </div>
+    <div>
+        <input type="checkbox" id="editActorFilms" name="editActorFilms" />
+        <label for="editActorFilms" class="font-weight-light p-3">Excluir / Incluir filmes do Ator?</label>
+    </div>
+    <div class="card container">
+        <h3 class="card-header text-center">LISTA DE FILMES DO ATOR</h3>
+        <div id="minhas-tabelas">
+            @Html.Partial("FilmesAtor", new Tuple<List<film>, List<film>, int>(Model.actor.films_actors.Select(f => f.film).ToList(), Model.filmes, Model.actor.actor_id));
+        </div>
+    </div>
 </div>
-<style>
-    .input-validation-error {
-        border-color: red;
-    }
-</style>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<script>
+    $(".btn-remover-filme-ator").on("click", DesassociarFilme);
+</script>

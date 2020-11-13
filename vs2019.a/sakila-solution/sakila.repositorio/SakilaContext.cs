@@ -9,7 +9,8 @@ namespace sakila.repositorio
     {
         public DbSet<actor> actors { get; set; }
         public DbSet<film> films { get; set; }
-        
+        public DbSet<film_actor> films_actors { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             IConfigurationRoot configuration = new ConfigurationBuilder()
@@ -35,8 +36,9 @@ namespace sakila.repositorio
 
             modelBuilder.Entity<film_actor>(entity =>
                 {
+                    entity.ToTable("film_actor");
                     entity.HasKey(e => new { e.film_id, e.actor_id });
-                    
+
                     entity.HasOne(e => e.actor)
                         .WithMany(e => e.films_actors)
                         .HasForeignKey(e => e.actor_id);
@@ -44,6 +46,7 @@ namespace sakila.repositorio
                     entity.HasOne(e => e.film)
                         .WithMany(e => e.films_actors)
                         .HasForeignKey(e => e.film_id);
+
                 });
 
             modelBuilder.Entity<film>(entity =>
@@ -52,6 +55,7 @@ namespace sakila.repositorio
                 entity.HasKey(e => e.film_id);
                 entity.Property(e => e.film_id).ValueGeneratedOnAdd();
                 entity.Property(e => e.title).IsRequired();
+                entity.Property(e => e.description).IsRequired();
             });
         }
     }

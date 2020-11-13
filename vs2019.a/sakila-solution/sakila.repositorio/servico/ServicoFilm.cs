@@ -32,5 +32,21 @@ namespace sakila.repositorio.servico
                 db.SaveChanges();
             }
         }
+
+        public film Obter(in int id)
+        {
+            film filme = null;
+            using (var db = new SakilaContext())
+            {
+                filme = db.films.Find(id);
+            }
+
+            return filme;
+        }
+
+        internal void Excluir(SakilaContext db, int actor_id)
+        {
+            throw new NotImplementedException("o paulo vai implementar");
+        }
     }
 }

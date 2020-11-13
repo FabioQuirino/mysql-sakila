@@ -23,6 +23,21 @@ namespace sakila.repositorio.servico
             return atores;
         }
 
+        public actor GetActorFilmById(int id)
+        {
+            actor ator = null;
+
+            using (var db = new SakilaContext())
+            {
+                ator = db.actors
+                .Include(x => x.films_actors)
+                .ThenInclude(y => y.film)
+                .Where(a=>a.actor_id==id)
+                .First();
+            }
+
+            return ator;
+        }
         public actor ObterPorSobrenome(string sobrenome)
         {
             actor ator = null;
@@ -41,10 +56,15 @@ namespace sakila.repositorio.servico
 
             using (var db = new SakilaContext())
             {
-                ator = db.actors.Find(primarykey);
+                ator = ObterPorId(db, primarykey.Value);
             }
 
             return ator;
+        }
+
+        private actor ObterPorId(SakilaContext db, int primaryKey)
+        {
+            return db.actors.Find(primaryKey);
         }
 
         public void Insert(actor ator)
@@ -66,13 +86,29 @@ namespace sakila.repositorio.servico
 
         public void Delete(actor ator)
         {
-            using(var db = new SakilaContext())
+            using (var db = new SakilaContext())
+            //Como não há concorrência nas modificações, não é necessário criar um contexto transacional.
+            //using (var transacao = db.Database.BeginTransaction())
             {
-                db.actors.Remove(ator);
-                //db.film_actors.Remove(ator);
-                db.SaveChanges();
-            }
+                try
+                {
+                    db.films_actors.RemoveRange(ator.films_actors);
+                    db.actors.Remove(ator);
+
+                    db.SaveChanges();
+                    //transacao.Commit();
+                }
+                catch
+                {
+                    //transacao.Rollback();
+                    //tratar exceção e gravar no log além de fechar a transação
+                    throw;
+                }
+/*                 finally
+                {
+                    transacao.Dispose();
+                };
+ */            }
         }
-        
     }
 }

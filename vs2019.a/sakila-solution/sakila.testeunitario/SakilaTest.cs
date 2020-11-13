@@ -41,7 +41,7 @@ namespace sakila.testeunitario
         {
             var filme = new film()
             {
-                title = "A VOLTA DOS QUE NÃO FORAM",
+                title = "A VOLTA DOS QUE Nï¿½O FORAM",
                 language_id = 1
             };
 
@@ -68,7 +68,7 @@ namespace sakila.testeunitario
         [TestMethod]
         public void TestarObterAtor()
         {
-            actor ator = new ServicoActor().ObterPorSobrenome("QUIRINO1");
+            actor ator = new ServicoActor().ObterPorSobrenome("QUIRINO");
             Assert.IsTrue(ator != null && ator.last_name == "QUIRINO");
         }
     }
