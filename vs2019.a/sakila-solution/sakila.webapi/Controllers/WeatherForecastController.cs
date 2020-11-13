@@ -27,9 +27,9 @@ namespace sakila.webapi.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<actor> Get()
+        public IEnumerable<string> Get()
         {
-            var atores = new ServicoActor().Listar();
+            var atores = new ServicoActor().Listar().Select(x => x.first_name);
             return atores;
         }
 

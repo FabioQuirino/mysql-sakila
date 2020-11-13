@@ -1,15 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-//Linha adicionada devido a atualização do Browser(LiveReload) - Arquivos modificados launchSettings.json, sakila.web.csproj e statup.cs
-using Westwind.AspNetCore.LiveReload;
 
 namespace sakila.web
 {
@@ -25,17 +18,6 @@ namespace sakila.web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //Bloco if adicionado devido a atualização do Browser(LiveReload) - Arquivos modificados launchSettings.json, sakila.web.csproj e statup.cs
-            //if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
-            //{    
-                //services.AddLiveReload(config =>
-                //{
-                //    config.LiveReloadEnabled = true;
-                //    config.ClientFileExtensions = ".cshtml,.css,.js,.htm,.html";
-                //    config.FolderToMonitor = "~/../";
-                //});
-            //}
-
             services.AddControllersWithViews();
         }
 
@@ -44,8 +26,6 @@ namespace sakila.web
         {
             if (env.IsDevelopment())
             {
-                //Linha adicionada devido a atualização do Browser(LiveReload) - Arquivos modificados launchSettings.json, sakila.web.csproj e statup.cs
-                //app.UseLiveReload();
                 app.UseDeveloperExceptionPage();
             }
             else
@@ -54,7 +34,8 @@ namespace sakila.web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseHttpsRedirection();
+
+            // app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
@@ -64,8 +45,8 @@ namespace sakila.web
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    "default",
+                    "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

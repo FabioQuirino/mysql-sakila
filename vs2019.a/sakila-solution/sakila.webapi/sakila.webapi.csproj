@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.10" />
+    <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.19" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\sakila.model\sakila.model.csproj" />
     <ProjectReference Include="..\sakila.repositorio\sakila.repositorio.csproj" />
   </ItemGroup>

@@ -11,11 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "sakila.testeunitario", "sak
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "sakila.web", "sakila.web\sakila.web.csproj", "{B16C37AA-A71B-47E8-8CA5-D74F11971584}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "sakila.web.identity", "sakila.web.identity\sakila.web.identity.csproj", "{DEE72C8B-1AE5-4326-869F-17BC06DE2A88}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "sakila.planilha", "sakila.planilha\sakila.planilha.csproj", "{8FC9B014-5C26-4F72-B6E5-5C2C808CE08E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sakila.webapi", "sakila.webapi\sakila.webapi.csproj", "{397B953D-B129-416E-8DFC-A08724D6729A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "sakila.webapi", "sakila.webapi\sakila.webapi.csproj", "{3353E87F-5BDC-441B-A018-892109B2F9FE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,18 +37,14 @@ Global
 		{B16C37AA-A71B-47E8-8CA5-D74F11971584}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B16C37AA-A71B-47E8-8CA5-D74F11971584}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B16C37AA-A71B-47E8-8CA5-D74F11971584}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DEE72C8B-1AE5-4326-869F-17BC06DE2A88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DEE72C8B-1AE5-4326-869F-17BC06DE2A88}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DEE72C8B-1AE5-4326-869F-17BC06DE2A88}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DEE72C8B-1AE5-4326-869F-17BC06DE2A88}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8FC9B014-5C26-4F72-B6E5-5C2C808CE08E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8FC9B014-5C26-4F72-B6E5-5C2C808CE08E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FC9B014-5C26-4F72-B6E5-5C2C808CE08E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8FC9B014-5C26-4F72-B6E5-5C2C808CE08E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{397B953D-B129-416E-8DFC-A08724D6729A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{397B953D-B129-416E-8DFC-A08724D6729A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{397B953D-B129-416E-8DFC-A08724D6729A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{397B953D-B129-416E-8DFC-A08724D6729A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3353E87F-5BDC-441B-A018-892109B2F9FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3353E87F-5BDC-441B-A018-892109B2F9FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3353E87F-5BDC-441B-A018-892109B2F9FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3353E87F-5BDC-441B-A018-892109B2F9FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
